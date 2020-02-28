@@ -65,6 +65,13 @@ namespace Blazor.Fluxor
 							// We are okay to try again until our hard fail time
 							lastError = err;
 						}
+						catch (TaskCanceledException)
+						{
+							// If the task is cancelled it is because Blazor server-side
+							// has lost its connection to the client and therefore
+							// cannot invoke any JavaScript
+							return;
+						}
 						catch (Exception err)
 						{
 							throw new StoreInitializationException("Store initialization error", err);
