@@ -17,7 +17,7 @@ namespace ReduxDevToolsIntegration.Client.Store.FetchData
 			HttpClient = httpClient;
 		}
 
-		protected async override Task HandleAsync(GetForecastDataAction action, IDispatcher dispatcher)
+		protected override async Task HandleAsync(GetForecastDataAction action, IDispatcher dispatcher)
 		{
 			try
 			{

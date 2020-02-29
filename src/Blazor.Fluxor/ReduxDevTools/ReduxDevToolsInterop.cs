@@ -15,9 +15,8 @@ namespace Blazor.Fluxor.ReduxDevTools
 
 		internal const string DevToolsCallbackId = "DevToolsCallback";
 		internal bool DevToolsBrowserPluginDetected { get; private set; }
-		internal event EventHandler<JumpToStateCallback> JumpToState;
-		internal event EventHandler AfterJumpToState;
-		internal event EventHandler Commit;
+		internal Func<JumpToStateCallback, Task> OnJumpToState;
+		internal Func<Task> OnCommit;
 
 		private const string FluxorDevToolsId = "__FluxorDevTools__";
 		private const string FromJsDevToolsDetectedActionTypeName = "detected";
@@ -37,7 +36,7 @@ namespace Blazor.Fluxor.ReduxDevTools
 			DotNetRef = DotNetObjectReference.Create(this);
 		}
 
-		internal async ValueTask InitAsync(IDictionary<string, object> state)
+		internal async ValueTask InitializeAsync(IDictionary<string, object> state)
 		{
 			IsInitializing = true;
 			try
@@ -61,7 +60,7 @@ namespace Blazor.Fluxor.ReduxDevTools
 		/// <param name="messageAsJson"></param>
 		[JSInvokable(DevToolsCallbackId)]
 		//TODO: Make private https://github.com/aspnet/Blazor/issues/1218
-		public void DevToolsCallback(string messageAsJson)
+		public async Task DevToolsCallback(string messageAsJson)
 		{
 			if (string.IsNullOrWhiteSpace(messageAsJson))
 				return;
@@ -74,12 +73,25 @@ namespace Blazor.Fluxor.ReduxDevTools
 					break;
 
 				case "COMMIT":
-					Commit?.Invoke(null, EventArgs.Empty);
+					Func<Task> commit = OnCommit;
+					if (commit != null)
+					{
+						Task task = commit();
+						if (task != null)
+							await task;
+					}
 					break;
 
 				case "JUMP_TO_STATE":
 				case "JUMP_TO_ACTION":
-					OnJumpToState(Json.Deserialize<JumpToStateCallback>(messageAsJson));
+					Func<JumpToStateCallback, Task> jumpToState = OnJumpToState;
+					if (jumpToState != null)
+					{
+						var callbackInfo = Json.Deserialize<JumpToStateCallback>(messageAsJson);
+						Task task = jumpToState(callbackInfo);
+						if (task != null)
+							await task;
+					}
 					break;
 			}
 		}
@@ -98,12 +110,6 @@ namespace Blazor.Fluxor.ReduxDevTools
 
 			string fullIdentifier = $"{FluxorDevToolsId}.{identifier}";
 			return JSRuntime.InvokeAsync<TResult>(fullIdentifier, args);
-		}
-
-		private void OnJumpToState(JumpToStateCallback jumpToStateCallback)
-		{
-			JumpToState?.Invoke(null, jumpToStateCallback);
-			AfterJumpToState?.Invoke(null, EventArgs.Empty);
 		}
 
 		internal static string GetClientScripts()

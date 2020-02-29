@@ -1,7 +1,6 @@
-﻿@inject IStore Store
-@inject IState<Client.Store.AppState> AppState
+﻿@inject IState<Client.Store.AppState> AppState
 
-@Store.Initialize()
+<Blazor.Fluxor.StoreInitializer/>
 
 <div id="search-and-results-area">
     <div id="search-area" class="px-2 py-3">

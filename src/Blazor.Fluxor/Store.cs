@@ -4,8 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazor.Fluxor
 {
@@ -18,7 +16,6 @@ namespace Blazor.Fluxor
 		public Task Initialized => InitializedCompletionSource.Task;
 
 		private readonly object SyncRoot = new object();
-		private IStoreInitializationStrategy StoreInitializationStrategy;
 		private readonly Dictionary<string, IFeature> FeaturesByName = new Dictionary<string, IFeature>(StringComparer.InvariantCultureIgnoreCase);
 		private readonly List<IEffect> Effects = new List<IEffect>();
 		private readonly List<IMiddleware> Middlewares = new List<IMiddleware>();
@@ -35,11 +32,8 @@ namespace Blazor.Fluxor
 		/// <summary>
 		/// Creates an instance of the store
 		/// </summary>
-		/// <param name="storeInitializationStrategy">The strategy used to initialise the store</param>
-		public Store(IStoreInitializationStrategy storeInitializationStrategy)
+		public Store()
 		{
-			StoreInitializationStrategy = storeInitializationStrategy;
-
 			MethodInfo dispatchNotifictionFromStoreMethodInfo =
 				typeof(IFeature)
 				.GetMethod(nameof(IFeature.ReceiveDispatchNotificationFromStore));
@@ -118,8 +112,13 @@ namespace Blazor.Fluxor
 				// done the first time Dispatch is called
 				if (HasActivatedStore)
 				{
-					middleware.InitializeAsync(this).Wait();
-					middleware.AfterInitializeAllMiddlewares();
+					middleware
+						.InitializeAsync(this)
+						.ContinueWith(t =>
+						{
+							if (t.IsCompletedSuccessfully)
+								middleware.AfterInitializeAllMiddlewares();
+						});
 				}
 			}
 		}
@@ -138,37 +137,33 @@ namespace Blazor.Fluxor
 			}
 		}
 
-		/// <see cref="IStore.Initialize"/>
-		public RenderFragment Initialize()
+		/// <see cref="IStore.GetScripts"/>
+		public string GetScripts()
 		{
-			if (HasActivatedStore)
-				return builder => { };
-
-			StoreInitializationStrategy.Initialize(ActivateStore);
-			return (RenderTreeBuilder renderer) =>
+			var scriptBuilder = new StringBuilder();
+			scriptBuilder.AppendLine("<script id='initializeFluxor'>");
 			{
-				var scriptBuilder = new StringBuilder();
-				scriptBuilder.AppendLine("if (window.canInitializeFluxor) {");
+				foreach (IMiddleware middleware in Middlewares)
 				{
-					scriptBuilder.AppendLine("delete window.canInitializeFluxor;");
-					foreach (IMiddleware middleware in Middlewares)
+					string middlewareScript = middleware.GetClientScripts();
+					if (middlewareScript != null)
 					{
-						string middlewareScript = middleware.GetClientScripts();
-						if (middlewareScript != null)
-						{
-							scriptBuilder.AppendLine($"// Middleware scripts: {middleware.GetType().FullName}");
-							scriptBuilder.AppendLine($"{middlewareScript}");
-						}
+						scriptBuilder.AppendLine($"// Middleware scripts: {middleware.GetType().FullName}");
+						scriptBuilder.AppendLine($"{middlewareScript}");
 					}
 				}
-				scriptBuilder.AppendLine("}");
+			}
+			scriptBuilder.AppendLine("</script>");
 
-				string script = scriptBuilder.ToString();
-				renderer.OpenElement(1, "script");
-				renderer.AddAttribute(2, "id", "initializeFluxor");
-				renderer.AddMarkupContent(3, script);
-				renderer.CloseElement();
-			};
+			return scriptBuilder.ToString();
+		}
+
+		/// <see cref="IStore.InitializeAsync"/>
+		public async Task InitializeAsync()
+		{
+			if (HasActivatedStore)
+				return;
+			await ActivateStoreAsync();
 		}
 
 		private void EndMiddlewareChange(IDisposable[] disposables)
@@ -188,7 +183,7 @@ namespace Blazor.Fluxor
 				effect.HandleAsync(action, this);
 		}
 
-		private async void InitializeMiddlewares()
+		private async Task InitializeMiddlewaresAsync()
 		{
 			foreach (IMiddleware middleware in Middlewares)
 			{
@@ -208,15 +203,16 @@ namespace Blazor.Fluxor
 			Middlewares.ForEach(x => x.AfterDispatch(actionJustDispatched));
 		}
 
-		private void ActivateStore()
+		private async Task ActivateStoreAsync()
 		{
 			if (HasActivatedStore)
 				return;
 
+			await InitializeMiddlewaresAsync();
+
 			lock (SyncRoot)
 			{
 				HasActivatedStore = true;
-				InitializeMiddlewares();
 				DequeueActions();
 				InitializedCompletionSource.SetResult(true);
 			}

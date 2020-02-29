@@ -1,6 +1,4 @@
 ﻿using Blazor.Fluxor.ReduxDevTools.CallbackObjects;
-using Microsoft.JSInterop;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -29,8 +27,8 @@ namespace Blazor.Fluxor.ReduxDevTools
 				PropertyNameCaseInsensitive = true,
 				WriteIndented = false
 			};
-			ReduxDevToolsInterop.JumpToState += OnJumpToState;
-			ReduxDevToolsInterop.Commit += OnCommit;
+			ReduxDevToolsInterop.OnJumpToState = OnJumpToState;
+			ReduxDevToolsInterop.OnCommit = OnCommit;
 		}
 
 		/// <see cref="IMiddleware.GetClientScripts"/>
@@ -40,7 +38,7 @@ namespace Blazor.Fluxor.ReduxDevTools
 		public async override Task InitializeAsync(IStore store)
 		{
 			await base.InitializeAsync(store);
-			await ReduxDevToolsInterop.InitAsync(GetState());
+			await ReduxDevToolsInterop.InitializeAsync(GetState());
 		}
 
 		/// <see cref="IMiddleware.MayDispatchAction(object)"/>
@@ -66,18 +64,18 @@ namespace Blazor.Fluxor.ReduxDevTools
 			return state;
 		}
 
-		private async void OnCommit(object sender, EventArgs e)
+		private async Task OnCommit()
 		{
-			await ReduxDevToolsInterop.InitAsync(GetState());
+			await ReduxDevToolsInterop.InitializeAsync(GetState());
 			SequenceNumberOfCurrentState = SequenceNumberOfLatestState;
 		}
 
-		private void OnJumpToState(object sender, JumpToStateCallback e)
+		private Task OnJumpToState(JumpToStateCallback callbackInfo)
 		{
-			SequenceNumberOfCurrentState = e.payload.actionId;
+			SequenceNumberOfCurrentState = callbackInfo.payload.actionId;
 			using (Store.BeginInternalMiddlewareChange())
 			{
-				var newFeatureStates = Json.Deserialize<Dictionary<string, object>>(e.state);
+				var newFeatureStates = Json.Deserialize<Dictionary<string, object>>(callbackInfo.state);
 				foreach (KeyValuePair<string, object> newFeatureState in newFeatureStates)
 				{
 					// Get the feature with the given name
@@ -94,6 +92,7 @@ namespace Blazor.Fluxor.ReduxDevTools
 					feature.RestoreState(stronglyTypedFeatureState);
 				}
 			}
+			return Task.CompletedTask;
 		}
 	}
 }

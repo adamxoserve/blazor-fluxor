@@ -15,7 +15,7 @@ namespace FlightFinder.Client.Store
 			HttpClient = httpClient;
 		}
 
-		protected async override Task HandleAsync(SearchAction action, IDispatcher dispatcher)
+		protected override async Task HandleAsync(SearchAction action, IDispatcher dispatcher)
 		{
 			try
 			{

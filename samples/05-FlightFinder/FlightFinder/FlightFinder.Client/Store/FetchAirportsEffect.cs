@@ -16,7 +16,7 @@ namespace FlightFinder.Client.Store
 			HttpClient = httpClient;
 		}
 
-		protected async override Task HandleAsync(FetchAirportsAction action, IDispatcher dispatcher)
+		protected override async Task HandleAsync(FetchAirportsAction action, IDispatcher dispatcher)
 		{
 			Airport[] airports = Array.Empty<Airport>();
 			try

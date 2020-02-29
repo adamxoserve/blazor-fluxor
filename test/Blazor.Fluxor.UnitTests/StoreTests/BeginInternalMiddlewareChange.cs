@@ -8,8 +8,6 @@ namespace Blazor.Fluxor.UnitTests.StoreTests
 	{
 		public class BeginInternalMiddlewareChange
 		{
-			TestStoreInitializer StoreInitializer;
-
 			[Fact]
 			public void ExecutesOnAllRegisteredMiddlewares()
 			{
@@ -19,7 +17,7 @@ namespace Blazor.Fluxor.UnitTests.StoreTests
 					.Setup(x => x.BeginInternalMiddlewareChange())
 					.Returns(new DisposableCallback(() => disposeCount++));
 
-				var subject = new Store(StoreInitializer);
+				var subject = new Store();
 				subject.AddMiddleware(mockMiddleware.Object);
 
 				var disposable1 = subject.BeginInternalMiddlewareChange();
@@ -30,11 +28,6 @@ namespace Blazor.Fluxor.UnitTests.StoreTests
 
 				disposable2.Dispose();
 				Assert.Equal(1, disposeCount);
-			}
-
-			public BeginInternalMiddlewareChange()
-			{
-				StoreInitializer = new TestStoreInitializer();
 			}
 		}
 	}

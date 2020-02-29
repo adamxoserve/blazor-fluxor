@@ -27,6 +27,13 @@ More sample projects will be added as the framework develops.
 
 ## What's new
 
+### New in 2.0
+- Change `@Store.Initialize` to `<Blazor.Fluxor.StoreInitializer/>` component, to allow async calls (fixes #120)
+ 
+**2.0 Release notes**
+
+In your `App.razor` files replace the call to `@Store.Initialize` with `<Blazor.Fluxor.StoreInitializer/>`
+
 ### New in 1.4.1
 - Handle TaskCanceledException when initialising the store and server has disconnected from the client.
 - Updated to SDK 3.1.2

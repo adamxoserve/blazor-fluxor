@@ -37,7 +37,7 @@ namespace Blazor.Fluxor.Routing
 		/// <see cref="Middleware.OnInternalMiddlewareChangeEnding"/>
 		protected override void OnInternalMiddlewareChangeEnding()
 		{
-			if (Feature.State.Uri != NavigationManager.Uri)
+			if (Feature.State.Uri != NavigationManager.Uri && Feature.State.Uri != null)
 				NavigationManager.NavigateTo(Feature.State.Uri);
 		}
 

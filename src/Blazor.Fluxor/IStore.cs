@@ -71,11 +71,19 @@ namespace Blazor.Fluxor
 		IReadOnlyDictionary<string, IFeature> Features { get; }
 
 		/// <summary>
-		/// This should be executed within a cshtml page such as Shared/MainLayout to ensure all 
-		/// Middleware Javascripts are inserted into the web page
+		/// Generates the standard Fluxor JavaScript needed, and also
+		/// gathers any JavaScript required for middleware that has
+		/// been used.
 		/// </summary>
-		/// <returns></returns>
-		RenderFragment Initialize();
+		/// <returns>JavaScript required by Fluxor and middleware</returns>
+		string GetScripts();
+
+		/// <summary>
+		/// This is executed by the <see cref="Blazor.Fluxor.StoreInitializer"/> component
+		/// to initialise the store.
+		/// </summary>
+		/// <returns>Task</returns>
+		Task InitializeAsync();
 
 		/// <summary>
 		/// Await this task if you need to asynchronously wait for the store to initialise

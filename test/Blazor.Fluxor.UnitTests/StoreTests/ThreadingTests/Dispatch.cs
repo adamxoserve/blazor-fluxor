@@ -1,7 +1,7 @@
 ﻿using Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests.CounterStore;
-using Blazor.Fluxor.UnitTests.SupportFiles;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests
@@ -12,13 +12,15 @@ namespace Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests
 		const int NumberOfIncrementsPerThread = 1000;
 		volatile int NumberOfThreadsWaitingToStart = NumberOfThreads;
 
-		IStore Store;
+		Store Store;
 		IFeature<CounterState> Feature;
 		ManualResetEvent StartEvent;
 
 		[Fact]
-		public void DoesNotLoseState()
+		public async Task DoesNotLoseState()
 		{
+			await Store.InitializeAsync();
+
 			var threads = new List<Thread>();
 			for (int i = 0; i < NumberOfThreads; i++)
 			{
@@ -50,15 +52,12 @@ namespace Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests
 		public Dispatch()
 		{
 			StartEvent = new ManualResetEvent(false);
-			var storeInitializer = new TestStoreInitializer();
-			Store = new Store(storeInitializer);
-			Store.Initialize();
+			Store = new Store();
 
 			Feature = new CounterFeature();
 			Store.AddFeature(Feature);
 
 			Feature.AddReducer(new IncrementCounterReducer());
-			storeInitializer.Complete();
 		}
 
 	}

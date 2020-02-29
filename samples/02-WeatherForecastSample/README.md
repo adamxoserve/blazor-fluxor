@@ -3,7 +3,7 @@ This sample shows how to have actions trigger side-effects that can perform asyn
 
 ## Setting up the project
 As with [Tutorial 1] create a basic Blazor app using the template supplied with Visual Studio.
-Add the relevant `<script>` references and `@Store.Initialize` call.
+Add the relevant `<script>` references and `<Blazor.Fluxor.StoreInitializer/>` component.
 
 
 Once you have this, create the `Store` folder as per the first tutorial. As we are modifying the FetchData example create a folder within `Store` named `FetchData` and add a `FetchDataState.cs` class with the following code.
