@@ -25,9 +25,10 @@ namespace Blazor.Fluxor.UnitTests.StoreTests
 			public async Task CallsAfterInitializeAllMiddlewares_WhenStoreInitializerCompletes()
 			{
 				var subject = new Store();
-				await subject.InitializeAsync();
 				var mockMiddleware = new Mock<IMiddleware>();
 				subject.AddMiddleware(mockMiddleware.Object);
+
+				await subject.InitializeAsync();
 
 				mockMiddleware
 					.Verify(x => x.AfterInitializeAllMiddlewares());
