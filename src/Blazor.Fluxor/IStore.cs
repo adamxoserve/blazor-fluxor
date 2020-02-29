@@ -61,7 +61,7 @@ namespace Blazor.Fluxor
 		/// </example>
 		/// <returns>A disposable that should have Dispose() called on to indicate the internal change is complete</returns>
 		/// <see cref="Middleware.IsInsideMiddlewareChange"/>
-		/// <seealso cref="ReduxDevTools.ReduxDevToolsMiddleware.OnJumpToState(object, ReduxDevTools.CallbackObjects.JumpToStateCallback)"/>
+		/// <seealso cref="ReduxDevTools.ReduxDevToolsMiddleware.OnJumpToState(ReduxDevTools.CallbackObjects.JumpToStateCallback)"/>
 		/// <seealso cref="Routing.RoutingMiddleware.LocationChanged(object, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)"/>
 		IDisposable BeginInternalMiddlewareChange();
 
@@ -88,7 +88,7 @@ namespace Blazor.Fluxor
 		/// <summary>
 		/// Await this task if you need to asynchronously wait for the store to initialise
 		/// </summary>
-		/// <see cref="Initialize()"/>
+		/// <see cref="InitializeAsync()"/>
 		Task Initialized { get; }
 	}
 }

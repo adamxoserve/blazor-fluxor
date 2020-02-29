@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Blazor.Fluxor
 {
+	/// <summary>
+	/// Initializes the stoe for the current user. This should be placed in the App.razor component.
+	/// </summary>
 	public class StoreInitializer : ComponentBase
 	{
 		[Inject]
@@ -19,18 +20,28 @@ namespace Blazor.Fluxor
 
 		private string Scripts;
 
+		/// <summary>
+		/// Retrieves supporting JavaScript for any Middleware
+		/// </summary>
 		protected override void OnInitialized()
 		{
 			Scripts = Store.GetScripts();
 			base.OnInitialized();
 		}
 
+		/// <summary>
+		/// Renders the supporting JavaScript for any Middleware
+		/// </summary>
+		/// <param name="builder">The builder</param>
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			base.BuildRenderTree(builder);
 			builder.AddMarkupContent(0, Scripts);
 		}
 
+		/// <summary>
+		/// Executes any supporting JavaScript required for Middleware
+		/// </summary>
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
