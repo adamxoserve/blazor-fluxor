@@ -2,7 +2,7 @@
 This sample shows how to take the standard Visual Studio Blazor template and Fluxorize it.
 
 ### Creating the project
-1. Create a new Blazor website using the template in Visual Studio (See the [Official Blazor-Fluxor nuget page] for details on how to install Blazor).
+1. Create a new Blazor website using the template in Visual Studio (See [Blazor University][1] for details on how to install Blazor).
 2. Name the project `CounterSample`.
 3. Add the Blazor-Fluxor nuget package to your Client project.
  
@@ -207,3 +207,5 @@ namespace CounterSample.Client.Store.Counter.IncrementCounter
   * it can require injected dependencies
   * the name of the method is irrelevant
   * we can have as many reducers in a single class as we wish.
+
+  [1]: <https://blazor-university.com/overview/installing-blazor/>
