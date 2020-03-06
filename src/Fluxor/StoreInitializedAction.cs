@@ -7,6 +7,7 @@
 	/// </summary>
 	public class StoreInitializedAction 
 	{
-		internal StoreInitializedAction() { }
+		//TODO: Make internal
+		public StoreInitializedAction() { }
 	}
 }

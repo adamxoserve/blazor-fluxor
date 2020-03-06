@@ -42,6 +42,10 @@
 		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Fluxor\Fluxor.csproj" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<IsPackable>true</IsPackable>
