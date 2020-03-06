@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <see cref="IMiddleware"/>
 	public abstract class Middleware : IMiddleware

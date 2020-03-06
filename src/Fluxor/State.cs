@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// A class that is injected into Blazor components/pages that provides access

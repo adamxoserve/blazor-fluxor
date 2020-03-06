@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <see cref="IStore"/>
 	public class Store : IStore

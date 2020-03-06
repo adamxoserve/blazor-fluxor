@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// An interface for implementing middleware

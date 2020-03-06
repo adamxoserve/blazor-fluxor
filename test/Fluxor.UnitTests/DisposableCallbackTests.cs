@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Blazor.Fluxor.UnitTests
+namespace Fluxor.UnitTests
 {
 	public class DisposableCallbackTests
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// A generic class that can be used as a base for effects.

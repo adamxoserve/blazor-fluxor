@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// Identifies a store, which is a collection of features. It is recommended that you do not create your

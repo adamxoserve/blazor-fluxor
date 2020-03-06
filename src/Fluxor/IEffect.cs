@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// Classes that implement this interface may be registered with the store. Whenever an action is dispatched

@@ -1,4 +1,4 @@
-﻿namespace Blazor.Fluxor
+﻿namespace Fluxor
 {
 	/// <summary>
 	/// A generic implementation of a reducer

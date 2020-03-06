@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	///	<summary>
 	///		Identifies a method as Reducer to modify state in response to an action. This is an

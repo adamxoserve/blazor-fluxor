@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// This class can be used to execute a custom piece of code when IDisposable is

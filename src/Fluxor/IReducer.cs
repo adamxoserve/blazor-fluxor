@@ -1,4 +1,4 @@
-﻿namespace Blazor.Fluxor
+﻿namespace Fluxor
 {
 	/// <summary>
 	/// Identifies a class that is used to update state based on the execution of a specific action

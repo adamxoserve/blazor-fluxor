@@ -1,4 +1,4 @@
-﻿namespace Blazor.Fluxor
+﻿namespace Fluxor
 {
 	/// <summary>
 	/// Interface that blazor components/pages should use to dispatch actions
