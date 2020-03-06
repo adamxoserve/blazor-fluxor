@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Blazor.Fluxor
@@ -14,7 +15,7 @@ namespace Blazor.Fluxor
 		/// <summary>
 		/// Number of times <see cref="IMiddleware.BeginInternalMiddlewareChange"/> has been called
 		/// </summary>
-		protected int BeginMiddlewareChangeCount { get; private set; }
+		protected volatile int BeginMiddlewareChangeCount;
 
 		/// <summary>
 		/// True if <see cref="BeginMiddlewareChangeCount"/> is greater than zero
@@ -22,7 +23,7 @@ namespace Blazor.Fluxor
 		protected bool IsInsideMiddlewareChange => BeginMiddlewareChangeCount > 0;
 
 		/// <see cref="IMiddleware.GetClientScripts"/>
-		public virtual string GetClientScripts() => null;
+		//TODO: Replace public virtual string GetClientScripts() => null;
 
 		/// <see cref="IMiddleware.InitializeAsync(IStore)"/>
 		public virtual Task InitializeAsync(IStore store)
@@ -50,12 +51,12 @@ namespace Blazor.Fluxor
 
 		IDisposable IMiddleware.BeginInternalMiddlewareChange()
 		{
-			BeginMiddlewareChangeCount++;
+			Interlocked.Increment(ref BeginMiddlewareChangeCount);
 			return new DisposableCallback(() =>
 			{
 				if (BeginMiddlewareChangeCount == 1)
 					OnInternalMiddlewareChangeEnding();
-				BeginMiddlewareChangeCount--;
+				Interlocked.Decrement(ref BeginMiddlewareChangeCount);
 			});
 		}
 	}

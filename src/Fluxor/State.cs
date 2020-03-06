@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.Components;
 
 namespace Blazor.Fluxor
 {
@@ -34,9 +33,9 @@ namespace Blazor.Fluxor
 		}
 
 		/// <see cref="IState.Subscribe(ComponentBase)"/>
-		public void Subscribe(ComponentBase subscriber) => Feature.Subscribe(subscriber);
+		//TODO: Replace public void Subscribe(ComponentBase subscriber) => Feature.Subscribe(subscriber);
 
 		/// <see cref="IState.Unsubscribe(ComponentBase)"/>
-		public void Unsubscribe(ComponentBase subscriber) => Feature.Unsubscribe(subscriber);
+		//TODO: Replace public void Unsubscribe(ComponentBase subscriber) => Feature.Unsubscribe(subscriber);
 	}
 }

@@ -13,7 +13,7 @@ namespace Blazor.Fluxor
 		/// then those scripts should be returned from this method
 		/// </summary>
 		/// <returns>Any required Javascript, or null</returns>
-		string GetClientScripts();
+		//TODO: Replace string GetClientScripts();
 
 		/// <summary>
 		/// Called exactly once by the store when the store initialises, or when

@@ -138,25 +138,26 @@ namespace Blazor.Fluxor
 		}
 
 		/// <see cref="IStore.GetScripts"/>
-		public string GetScripts()
-		{
-			var scriptBuilder = new StringBuilder();
-			scriptBuilder.AppendLine("<script id='initializeFluxor'>");
-			{
-				foreach (IMiddleware middleware in Middlewares)
-				{
-					string middlewareScript = middleware.GetClientScripts();
-					if (middlewareScript != null)
-					{
-						scriptBuilder.AppendLine($"// Middleware scripts: {middleware.GetType().FullName}");
-						scriptBuilder.AppendLine($"{middlewareScript}");
-					}
-				}
-			}
-			scriptBuilder.AppendLine("</script>");
+		//TODO: Replace
+		//public string GetScripts()
+		//{
+		//	var scriptBuilder = new StringBuilder();
+		//	scriptBuilder.AppendLine("<script id='initializeFluxor'>");
+		//	{
+		//		foreach (IMiddleware middleware in Middlewares)
+		//		{
+		//			string middlewareScript = middleware.GetClientScripts();
+		//			if (middlewareScript != null)
+		//			{
+		//				scriptBuilder.AppendLine($"// Middleware scripts: {middleware.GetType().FullName}");
+		//				scriptBuilder.AppendLine($"{middlewareScript}");
+		//			}
+		//		}
+		//	}
+		//	scriptBuilder.AppendLine("</script>");
 
-			return scriptBuilder.ToString();
-		}
+		//	return scriptBuilder.ToString();
+		//}
 
 		/// <see cref="IStore.InitializeAsync"/>
 		public async Task InitializeAsync()

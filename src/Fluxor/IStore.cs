@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -76,7 +75,7 @@ namespace Blazor.Fluxor
 		/// been used.
 		/// </summary>
 		/// <returns>JavaScript required by Fluxor and middleware</returns>
-		string GetScripts();
+		//TODO: Replace string GetScripts();
 
 		/// <summary>
 		/// This is executed by the <see cref="Blazor.Fluxor.StoreInitializer"/> component
