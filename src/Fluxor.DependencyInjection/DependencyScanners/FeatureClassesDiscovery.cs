@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection.DependencyScanners
+namespace Fluxor.DependencyInjection.DependencyScanners
 {
 	internal static class FeatureClassesDiscovery
 	{

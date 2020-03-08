@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Blazor.Fluxor.DependencyInjection.DependencyScanners
+namespace Fluxor.DependencyInjection.DependencyScanners
 {
 	internal static class ReducerClassessDiscovery
 	{

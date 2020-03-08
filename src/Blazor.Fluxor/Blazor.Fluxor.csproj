@@ -46,6 +46,10 @@
 	  <ProjectReference Include="..\Fluxor\Fluxor.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="DependencyInjection\" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<IsPackable>true</IsPackable>

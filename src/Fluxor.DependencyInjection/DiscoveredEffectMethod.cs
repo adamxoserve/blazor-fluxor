@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
-	internal class DiscoveredReducerMethod
+	internal class DiscoveredEffectMethod
 	{
 		public readonly Type HostClassType;
 		public readonly MethodInfo MethodInfo;
-		public readonly Type StateType;
 		public readonly Type ActionType;
 
-		public DiscoveredReducerMethod(Type hostClassType, MethodInfo methodInfo, Type stateType, Type actionType)
+		public DiscoveredEffectMethod(Type hostClassType, MethodInfo methodInfo, Type actionType)
 		{
 			HostClassType = hostClassType;
 			MethodInfo = methodInfo;
-			StateType = stateType;
 			ActionType = actionType;
 		}
 	}

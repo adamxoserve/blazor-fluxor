@@ -1,10 +1,10 @@
-﻿using Blazor.Fluxor.DependencyInjection;
+﻿using Fluxor.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Blazor.Fluxor
+namespace Fluxor
 {
 	/// <summary>
 	/// Extensions for <see cref="IServiceCollection"/>
@@ -44,7 +44,6 @@ namespace Blazor.Fluxor
 			// Scan for features and effects
 			if (Options.DependencyInjectionEnabled)
 			{
-				serviceCollection.AddScoped<ReduxDevTools.ReduxDevToolsInterop>();
 				DependencyScanner.Scan(
 					serviceCollection: serviceCollection,
 					assembliesToScan: Options.DependencyInjectionAssembliesToScan,

@@ -1,12 +1,11 @@
-﻿using Blazor.Fluxor.DependencyInjection.DependencyScanners;
+﻿using Fluxor.DependencyInjection.DependencyScanners;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
 	internal static class DependencyScanner
 	{

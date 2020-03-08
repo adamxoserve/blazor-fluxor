@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
 	internal class EffectWrapper<TAction> : IEffect
 	{

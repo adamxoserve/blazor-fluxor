@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
 	/// <summary>
 	/// An options class for configuring Fluxor

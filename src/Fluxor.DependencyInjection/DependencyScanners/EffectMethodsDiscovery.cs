@@ -4,29 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection.DependencyScanners
+namespace Fluxor.DependencyInjection.DependencyScanners
 {
-	internal static class ReducerMethodsDiscovery
+	internal static class EffectMethodsDiscovery
 	{
-		internal static IEnumerable<DiscoveredReducerMethod> DiscoverReducerMethods(
-			IServiceCollection serviceCollection,
+		internal static IEnumerable<DiscoveredEffectMethod> DiscoverEffectMethods(IServiceCollection serviceCollection,
 			IEnumerable<Type> allCandidateTypes)
 		{
-			var discoveredReducers = allCandidateTypes
+			var discoveredEffects = allCandidateTypes
 				.SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
 				.Select(m => new
 				{
 					MethodInfo = m,
-					ReducerAttribute = m.GetCustomAttribute<ReducerMethodAttribute>(false)
+					EffectAttribute = m.GetCustomAttribute<EffectMethodAttribute>(false)
 				})
-				.Where(x => x.ReducerAttribute != null)
-				.Select(x => new DiscoveredReducerMethod(
+				.Where(x => x.EffectAttribute != null)
+				.Select(x => new DiscoveredEffectMethod(
 					hostClassType: x.MethodInfo.DeclaringType,
 					methodInfo: x.MethodInfo,
-					stateType: x.MethodInfo.GetParameters()[0].ParameterType,
-					actionType: x.MethodInfo.GetParameters()[1].ParameterType));
+					actionType: x.MethodInfo.GetParameters()[0].ParameterType));
 
-			IEnumerable<Type> hostClassTypes = discoveredReducers
+			IEnumerable<Type> hostClassTypes = discoveredEffects
 				.Select(x => x.HostClassType)
 				.Where(t => !t.IsAbstract)
 				.Distinct();
@@ -35,7 +33,7 @@ namespace Blazor.Fluxor.DependencyInjection.DependencyScanners
 				if (!hostClassType.IsAbstract)
 					serviceCollection.AddScoped(hostClassType);
 
-			return discoveredReducers;
+			return discoveredEffects;
 		}
 	}
 }

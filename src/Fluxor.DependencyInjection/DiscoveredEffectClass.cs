@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
 	internal class DiscoveredEffectClass
 	{

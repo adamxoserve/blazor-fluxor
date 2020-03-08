@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Blazor.Fluxor.DependencyInjection
+namespace Fluxor.DependencyInjection
 {
 	internal class ReducerWrapper<TState, TAction> : IReducer<TState>
 	{
