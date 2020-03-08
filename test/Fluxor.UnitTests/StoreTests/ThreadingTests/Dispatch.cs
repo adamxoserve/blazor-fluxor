@@ -1,10 +1,10 @@
-﻿using Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests.CounterStore;
+﻿using Fluxor.UnitTests.StoreTests.ThreadingTests.CounterStore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests
+namespace Fluxor.UnitTests.StoreTests.ThreadingTests
 {
 	public class Dispatch
 	{

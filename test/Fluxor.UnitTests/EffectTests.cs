@@ -1,7 +1,7 @@
-﻿using Blazor.Fluxor.UnitTests.SupportFiles;
+﻿using Fluxor.UnitTests.SupportFiles;
 using Xunit;
 
-namespace Blazor.Fluxor.UnitTests
+namespace Fluxor.UnitTests
 {
 	public class EffectTests
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blazor.Fluxor.UnitTests.SupportFiles
+namespace Fluxor.UnitTests.SupportFiles
 {
 	public class MiddlewareWithExposedMembers : Middleware
 	{

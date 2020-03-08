@@ -1,6 +1,6 @@
 ﻿using Moq;
 
-namespace Blazor.Fluxor.UnitTests.MockFactories
+namespace Fluxor.UnitTests.MockFactories
 {
 	public static class MockMiddlewareFactory
 	{

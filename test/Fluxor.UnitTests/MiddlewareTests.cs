@@ -1,9 +1,9 @@
-﻿using Blazor.Fluxor.UnitTests.SupportFiles;
+﻿using Fluxor.UnitTests.SupportFiles;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Blazor.Fluxor.UnitTests
+namespace Fluxor.UnitTests
 {
 	public class MiddlewareTests
 	{

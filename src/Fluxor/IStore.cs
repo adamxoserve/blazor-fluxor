@@ -78,8 +78,9 @@ namespace Fluxor
 		//TODO: Replace string GetScripts();
 
 		/// <summary>
-		/// This is executed by the <see cref="Blazor.Fluxor.StoreInitializer"/> component
-		/// to initialise the store.
+		/// This method should be executed when the store is first ready to be initialized.
+		/// It will, in turn, initialise any middleware. This method can safely be executed
+		/// more than once.
 		/// </summary>
 		/// <returns>Task</returns>
 		Task InitializeAsync();

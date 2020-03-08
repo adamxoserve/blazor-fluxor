@@ -1,9 +1,9 @@
-﻿using Blazor.Fluxor.UnitTests.SupportFiles;
+﻿using Fluxor.UnitTests.SupportFiles;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Blazor.Fluxor.UnitTests.StoreTests
+namespace Fluxor.UnitTests.StoreTests
 {
 	public partial class StoreTests
 	{

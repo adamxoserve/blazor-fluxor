@@ -1,4 +1,4 @@
-﻿namespace Blazor.Fluxor.UnitTests.StoreTests.ThreadingTests.CounterStore
+﻿namespace Fluxor.UnitTests.StoreTests.ThreadingTests.CounterStore
 {
 	public class CounterState
 	{
