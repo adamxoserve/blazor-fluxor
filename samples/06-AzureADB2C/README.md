@@ -1,1 +1,1 @@
-# Azure AD B2C  sample
+# Azure AD B2C sample
