@@ -43,8 +43,7 @@ namespace Blazor.Fluxor.Routing
 
 		private void LocationChanged(object sender, LocationChangedEventArgs e)
 		{
-			string fullUri = NavigationManager.ToAbsoluteUri(e.Location).ToString();
-			if (Store != null && !IsInsideMiddlewareChange && fullUri != Feature.State.Uri)
+			if (Store != null && !IsInsideMiddlewareChange && e.Location != Feature.State.Uri)
 				Store.Dispatch(new Go(e.Location));
 		}
 	}
